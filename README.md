@@ -9,7 +9,10 @@ Tested:
 ## Usage:
 Load class 
 ````PHP
-require 'path/to/EasyConnect.php';
+require __DIR__ . '/vendor/autoload.php';
+
+use EasyConnect\EasyConnect;
+
 $database = new EasyConnect();
 ````
 Retrive data from database
