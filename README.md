@@ -3,8 +3,8 @@ A simple PDO manager to manage connections and reduce code in non-framework PHP 
 
 Tested:
 - [x] SQLite
-- [] MySQL
-- [] PostgreSQL 
+- [ ] MySQL
+- [ ] PostgreSQL 
 
 ## Usage:
 Load class 
@@ -24,7 +24,7 @@ $params = [];
 $result = $database->getData($query, $params);
 
 ````
-
+Inserting / Updating / Deleting data
 ````php
 //Insert data
 //Query (Required)
