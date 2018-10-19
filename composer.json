@@ -1,5 +1,20 @@
 {
+    "name": "laykith/easyconnect",
+    "description": "My first Composer project",
+    "authors": [
+        {
+            "name": "André Broman",
+            "email": "bromanandre@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
     "require": {
+        "php": ">=5.3.0",
         "vlucas/phpdotenv": "^2.5"
+    },
+    "autoload": {
+        "psr-2": {
+            "EasyConnect": "src/easyconnect"
+        }
     }
 }
