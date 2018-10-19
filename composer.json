@@ -13,8 +13,8 @@
         "vlucas/phpdotenv": "^2.5"
     },
     "autoload": {
-        "psr-2": {
-            "EasyConnect": "src/easyconnect"
+        "psr-4": {
+            "EasyConnect\\": "src/"
         }
     }
 }
