@@ -2,21 +2,39 @@
 
 declare(strict_types=1);
 
+require __DIR__.'/vendor/autoload.php';
+
 class EasyConnect
 {
     //PDO object
     private $pdo;
+    private $dotenv;
 
     public function __construct()
     {
-        $this->fileName = $_SERVER['DOCUMENT_ROOT'].'/database/newsfeed.sqlite';
-        //Create PDO connection
-        // Create (connect to) SQLite database in file
-        $dsn = "sqlite:$this->fileName";
-        $this->pdo = new PDO($dsn);
+        $this->dotenv = new Dotenv\Dotenv(__DIR__);
+        $this->dotenv->load();
+
+        if ('sqlite' === strtolower(getenv('EC_driver'))) {
+            $this->pdo = 'sqlite:'.getenv('EC_filepath');
+        }
+
+        if ('mysql' === strtolower(getenv('EC_driver'))) {
+            //Config
+            $host = 'host='.getenv('EC_host');
+            $dbname = 'dbname='.getenv('EC_dbname');
+            $username = getenv('EC_username');
+            $password = getenv('EC_password');
+
+            //Create connection
+            $this->pdo = new PDO("mysql:$host;$dbname", $username, $password);
+        }
+
+        if ('') {
+
         // Set errormode to exceptions
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE,
-                            PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
     }
 
     /**
