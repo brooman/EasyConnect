@@ -8,7 +8,7 @@ class EasyConnect
 {
     private $pdo;
     private $dotenv;
-    private $status;
+    private $error;
 
     public function __construct()
     {
@@ -17,7 +17,6 @@ class EasyConnect
         try {
             if ('sqlite' === strtolower(getenv('EC_driver'))) {
                 $this->pdo = new PDO('sqlite:'.getenv('EC_filepath'));
-                $this->status = 'Connected to SQLite';
             }
 
             if ('mysql' === strtolower(getenv('EC_driver'))) {
@@ -30,7 +29,6 @@ class EasyConnect
 
                 //Create connection
                 $this->pdo = new PDO("mysql:$host;$port;$dbname", $username, $password);
-                $this->status = 'Connected to MySQL';
             }
 
             if ('pgsql' === strtolower(getenv('EC_driver'))) {
@@ -40,12 +38,18 @@ class EasyConnect
                 $password = 'password='.getenv('EC_password');
 
                 $this->pdo = new PDO("pgsql:$host;$port;$dbname;$username;$password");
-                $this->status = 'Connected to PostgreSQL';
             }
             // Set errormode to exceptions
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            $this->status = $e;
+            $this->error = $e;
+        }
+    }
+
+    public function getError()
+    {
+        if ($this->Error) {
+            return $this->status->getMessage();
         }
     }
 
@@ -77,7 +81,7 @@ class EasyConnect
             $sth = $this->pdo->prepare($query);
             $sth->execute($params);
         } catch (PDOException $e) {
-            return $e->getMessage();
+            $this->error = $e;
         }
     }
 }
