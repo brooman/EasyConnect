@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-require __DIR__.'/vendor/autoload.php';
+namespace EasyConnect;
+
+use Dotenv;
+use \PDO;
 
 class EasyConnect
 {
@@ -12,11 +15,11 @@ class EasyConnect
 
     public function __construct()
     {
-        $this->dotenv = new Dotenv\Dotenv(__DIR__);
+        $this->dotenv = new Dotenv\Dotenv($_SERVER["DOCUMENT_ROOT"]);
         $this->dotenv->load();
         try {
             if ('sqlite' === strtolower(getenv('EC_driver'))) {
-                $this->pdo = new PDO('sqlite:'.getenv('EC_filepath'));
+                $this->pdo = new PDO('sqlite:'.$_SERVER["DOCUMENT_ROOT"]."/".getenv('EC_filepath'));
             }
 
             if ('mysql' === strtolower(getenv('EC_driver'))) {
