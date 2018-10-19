@@ -30,11 +30,16 @@ class EasyConnect
             $this->pdo = new PDO("mysql:$host;$dbname", $username, $password);
         }
 
-        if ('') {
+        if ('pgsql' === strtolower(getenv('EC_driver'))) {
+            $host = 'host='.getenv('EC_host');
+            $dbname = 'dbname='.getenv('EC_dbname');
+            $username = 'user='.getenv('EC_username');
+            $password = 'password='.getenv('EC_password');
 
-        // Set errormode to exceptions
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo = new PDO("pgsql:$host;$dbname;$username;$password");
         }
+        // Set errormode to exceptions
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**
