@@ -23,12 +23,13 @@ class EasyConnect
             if ('mysql' === strtolower(getenv('EC_driver'))) {
                 //Config
                 $host = 'host='.getenv('EC_host');
+                $port = 'port='.getenv('EC_port');
                 $dbname = 'dbname='.getenv('EC_dbname');
                 $username = getenv('EC_username');
                 $password = getenv('EC_password');
 
                 //Create connection
-                $this->pdo = new PDO("mysql:$host;$dbname", $username, $password);
+                $this->pdo = new PDO("mysql:$host;$port;$dbname", $username, $password);
                 $this->status = 'Connected to MySQL';
             }
 
