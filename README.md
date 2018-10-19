@@ -5,6 +5,12 @@ Tested:
 - [x] SQLite
 - [ ] MySQL
 - [ ] PostgreSQL 
+## Setup:
+1. 
+2. Open .env.example and copy the settings you need to .env
+3. Make sure .env is in root folder
+4. Open .gitignore and add .env if use git
+5. Start using EasyConnect!
 
 ## Usage:
 Load class 
