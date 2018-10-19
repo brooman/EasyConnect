@@ -42,11 +42,11 @@ class EasyConnect
                 $this->pdo = new PDO("pgsql:$host;$port;$dbname;$username;$password");
                 $this->status = 'Connected to PostgreSQL';
             }
+            // Set errormode to exceptions
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             $this->status = $e;
         }
-        // Set errormode to exceptions
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**
