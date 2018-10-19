@@ -54,3 +54,6 @@ Retrive PDO exceptions
 //Gets the error message if PDO exception was triggered.
 $database->getError();
 ````
+## License
+
+[MIT](LICENSE) © [André Broman](https://github.com/laykith/)
