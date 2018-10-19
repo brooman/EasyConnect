@@ -6,37 +6,43 @@ require __DIR__.'/vendor/autoload.php';
 
 class EasyConnect
 {
-    //PDO object
     private $pdo;
     private $dotenv;
+    private $status;
 
     public function __construct()
     {
         $this->dotenv = new Dotenv\Dotenv(__DIR__);
         $this->dotenv->load();
+        try {
+            if ('sqlite' === strtolower(getenv('EC_driver'))) {
+                $this->pdo = new PDO('sqlite:'.getenv('EC_filepath'));
+                $this->status = 'Connected to SQLite';
+            }
 
-        if ('sqlite' === strtolower(getenv('EC_driver'))) {
-            $this->pdo = 'sqlite:'.getenv('EC_filepath');
-        }
+            if ('mysql' === strtolower(getenv('EC_driver'))) {
+                //Config
+                $host = 'host='.getenv('EC_host');
+                $dbname = 'dbname='.getenv('EC_dbname');
+                $username = getenv('EC_username');
+                $password = getenv('EC_password');
 
-        if ('mysql' === strtolower(getenv('EC_driver'))) {
-            //Config
-            $host = 'host='.getenv('EC_host');
-            $dbname = 'dbname='.getenv('EC_dbname');
-            $username = getenv('EC_username');
-            $password = getenv('EC_password');
+                //Create connection
+                $this->pdo = new PDO("mysql:$host;$dbname", $username, $password);
+                $this->status = 'Connected to MySQL';
+            }
 
-            //Create connection
-            $this->pdo = new PDO("mysql:$host;$dbname", $username, $password);
-        }
+            if ('pgsql' === strtolower(getenv('EC_driver'))) {
+                $host = 'host='.getenv('EC_host');
+                $dbname = 'dbname='.getenv('EC_dbname');
+                $username = 'user='.getenv('EC_username');
+                $password = 'password='.getenv('EC_password');
 
-        if ('pgsql' === strtolower(getenv('EC_driver'))) {
-            $host = 'host='.getenv('EC_host');
-            $dbname = 'dbname='.getenv('EC_dbname');
-            $username = 'user='.getenv('EC_username');
-            $password = 'password='.getenv('EC_password');
-
-            $this->pdo = new PDO("pgsql:$host;$dbname;$username;$password");
+                $this->pdo = new PDO("pgsql:$host;$dbname;$username;$password");
+                $this->status = 'Connected to PostgreSQL';
+            }
+        } catch (PDOException $e) {
+            $this->status = $e;
         }
         // Set errormode to exceptions
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
