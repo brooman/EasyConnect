@@ -46,7 +46,12 @@ class EasyConnect
         }
     }
 
-    public function getError()
+    /**
+     * Get message from PDOExceptions.
+     *
+     * @return string
+     */
+    public function getError(): string
     {
         if ($this->Error) {
             return $this->status->getMessage();
