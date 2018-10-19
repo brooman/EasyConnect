@@ -39,7 +39,7 @@ class EasyConnect
                 $username = 'user='.getenv('EC_username');
                 $password = 'password='.getenv('EC_password');
 
-                $this->pdo = new PDO("pgsql:$host;$dbname;$username;$password");
+                $this->pdo = new PDO("pgsql:$host;$port;$dbname;$username;$password");
                 $this->status = 'Connected to PostgreSQL';
             }
         } catch (PDOException $e) {
