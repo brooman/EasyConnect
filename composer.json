@@ -1,6 +1,6 @@
 {
     "name": "laykith/easyconnect",
-    "description": "My first Composer project",
+    "description": "A simple PDO manager to manage connections and reduce code in non-framework PHP scripts.",
     "authors": [
         {
             "name": "André Broman",
