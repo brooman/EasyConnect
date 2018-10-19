@@ -1,12 +1,14 @@
 {
     "name": "laykith/easyconnect",
     "description": "A simple PDO manager to manage connections and reduce code in non-framework PHP scripts.",
+    "version": 1.0.0,
     "authors": [
         {
             "name": "André Broman",
             "email": "bromanandre@gmail.com"
         }
     ],
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
