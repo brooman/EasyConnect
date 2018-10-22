@@ -64,8 +64,8 @@ class EasyConnect
     /**
      * Get data from database.
      *
-     * @param string $query
-     * @param array  $params (Optional)
+     * @param string     $query
+     * @param array|null $params
      *
      * @return array
      */
@@ -80,10 +80,10 @@ class EasyConnect
     /**
      * INSERT / UPDATE / DELETE data.
      *
-     * @param string $query
-     * @param array  $params (Optional)
+     * @param string     $query
+     * @param array|null $params
      */
-    public function setData(string $query, ?array $params = []): string
+    public function setData(string $query, ?array $params = [])
     {
         try {
             $sth = $this->pdo->prepare($query);
