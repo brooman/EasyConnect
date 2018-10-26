@@ -52,13 +52,16 @@ class EasyConnect
     /**
      * Get message from PDOExceptions.
      *
-     * @return string
+     * @return string|null
      */
-    public function getError(): string
+    public function getError(): ?string
     {
-        if ($this->Error) {
+        if ($this->error) {
             return $this->status->getMessage();
         }
+
+        //Returns NULL if $this->error is empty
+        return NULL;
     }
 
     /**
