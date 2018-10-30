@@ -15,31 +15,36 @@ class EasyConnect
 
     public function __construct()
     {
+        //Load .env config file
         $this->dotenv = new Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT']);
         $this->dotenv->load();
+
         try {
             if ('sqlite' === strtolower(getenv('EC_driver'))) {
+                //Load SQLite config && Create SQLite connection
                 $this->pdo = new PDO('sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/'.getenv('EC_filepath'));
             }
 
             if ('mysql' === strtolower(getenv('EC_driver'))) {
-                //Config
+                //Load MySQL config
                 $host = 'host='.getenv('EC_host');
                 $port = 'port='.getenv('EC_port');
                 $dbname = 'dbname='.getenv('EC_dbname');
                 $username = getenv('EC_username');
                 $password = getenv('EC_password');
 
-                //Create connection
+                //Create MySQL connection
                 $this->pdo = new PDO("mysql:$host;$port;$dbname", $username, $password);
             }
 
             if ('pgsql' === strtolower(getenv('EC_driver'))) {
+                //Load PostgreSQL config
                 $host = 'host='.getenv('EC_host');
                 $dbname = 'dbname='.getenv('EC_dbname');
                 $username = 'user='.getenv('EC_username');
                 $password = 'password='.getenv('EC_password');
 
+                //Create PostgreSQL connection
                 $this->pdo = new PDO("pgsql:$host;$port;$dbname;$username;$password");
             }
             // Set errormode to exceptions
