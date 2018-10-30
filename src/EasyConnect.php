@@ -61,7 +61,7 @@ class EasyConnect
         }
 
         //Returns NULL if $this->error is empty
-        return NULL;
+        return null;
     }
 
     /**
@@ -78,6 +78,23 @@ class EasyConnect
         $sth->execute($params);
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get single array from database
+     * Useful when fetching from single row.
+     *
+     * @param string     $query
+     * @param array|null $params
+     *
+     * @return array
+     */
+    public function getSingle(string $query, ?array $params = []): array
+    {
+        $sth = $this->pdo->prepare($query);
+        $sth->execute($params);
+
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
