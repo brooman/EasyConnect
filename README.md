@@ -23,24 +23,24 @@ use EasyConnect\EasyConnect;
 
 //Example configs (Use what you need based on driver)
 $config = [
-    'driver' => 'Sqlite', //MySQL SQLite pgsql - (Case Insensetive)
-    'filepath' => 'absolute/path/to/database/file.db', //required for: SQLite
-    'host' => 'localhost', //required for: MySQL & pgsql
-    'port' => '3306', //required for: MySQL & pgsql
-    'dbname' => 'name', //required for: MySQL & pgsql
-    'username' => 'root', //required for: MySQL & pgsql
-    'password' => 'password123', //required for: MySQL & pgsql
+    'driver'   => 'Sqlite',                              //MySQL SQLite pgsql - (Case Insensetive)
+    'filepath' => 'absolute/path/to/database/file.db',   //required for: SQLite
+    'host'     => 'localhost',                           //required for: MySQL & pgsql
+    'port'     => '3306',                                //required for: MySQL & pgsql
+    'dbname'   => 'name',                                //required for: MySQL & pgsql
+    'username' => 'root',                                //required for: MySQL & pgsql
+    'password' => 'password123',                         //required for: MySQL & pgsql
 ];
 
 //Suggestion: Use vlucas/phpdotenv package to load values
 $config = [
-    'driver' => getEnv('database_driver'), //MySQL SQLite pgsql - (Case Insensetive)
-    'filepath' => getEnv('database_filepath'), //required for: SQLite
-    'host' => getEnv('database_host'), //required for: MySQL & pgsql
-    'port' =>  getEnv('database_port'), //required for: MySQL & pgsql
-    'dbname' => getEnv('database_name'), //required for: MySQL & pgsql
-    'dbname' => getEnv('database_name'), //required for: MySQL & pgsql
-    'password' => getEnv('password'), //required for: MySQL & pgsql
+    'driver'   => getEnv('database_driver'),     //MySQL SQLite pgsql - (Case Insensetive)
+    'filepath' => getEnv('database_filepath'),   //required for: SQLite
+    'host'     => getEnv('database_host'),       //required for: MySQL & pgsql
+    'port'     => getEnv('database_port'),       //required for: MySQL & pgsql
+    'dbname'   => getEnv('database_name'),       //required for: MySQL & pgsql
+    'dbname'   => getEnv('database_name'),       //required for: MySQL & pgsql
+    'password' => getEnv('password'),            //required for: MySQL & pgsql
 ];
 
 $database = new EasyConnect($config);
