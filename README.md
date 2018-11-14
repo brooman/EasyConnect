@@ -24,10 +24,10 @@ use EasyConnect\EasyConnect;
 //Example configs (Use what you need based on driver)
 $config = [
     'driver' => 'Sqlite', //MySQL SQLite pgsql - (Case Insensetive)
-    'filepath' => '/database/users.db', //required for: SQLite
+    'filepath' => 'absolute/path/to/database/file.db', //required for: SQLite
     'host' => 'localhost', //required for: MySQL & pgsql
     'port' => '3306', //required for: MySQL & pgsql
-    'dbname' => 'users', //required for: MySQL & pgsql
+    'dbname' => 'name', //required for: MySQL & pgsql
     'username' => 'root', //required for: MySQL & pgsql
     'password' => 'password123', //required for: MySQL & pgsql
 ];
