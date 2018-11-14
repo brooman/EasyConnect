@@ -4,45 +4,45 @@ declare(strict_types=1);
 
 namespace EasyConnect;
 
-use Dotenv;
 use PDO;
 
 class EasyConnect
 {
     private $pdo;
-    private $dotenv;
     private $error;
 
-    public function __construct()
+    /**
+     * Constructor.
+     *
+     * @param string|null $env
+     */
+    public function __construct($config)
     {
-        //Load .env config file
-        $this->dotenv = new Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT']);
-        $this->dotenv->load();
-
         try {
-            if ('sqlite' === strtolower(getenv('EC_driver'))) {
+            if ('sqlite' === strtolower($config['driver'])) {
                 //Load SQLite config && Create SQLite connection
-                $this->pdo = new PDO('sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/'.getenv('EC_filepath'));
+                $this->pdo = new PDO('sqlite:'.$config['filepath']);
             }
 
-            if ('mysql' === strtolower(getenv('EC_driver'))) {
+            if ('mysql' === strtolower($config['driver'])) {
                 //Load MySQL config
-                $host = 'host='.getenv('EC_host');
-                $port = 'port='.getenv('EC_port');
-                $dbname = 'dbname='.getenv('EC_dbname');
-                $username = getenv('EC_username');
-                $password = getenv('EC_password');
+                $host = 'host='.$config['host'];
+                $port = 'port='.$config['port'];
+                $dbname = 'dbname='.$config['dbname'];
+                $username = $config['username'];
+                $password = $config['password'];
 
                 //Create MySQL connection
                 $this->pdo = new PDO("mysql:$host;$port;$dbname", $username, $password);
             }
 
-            if ('pgsql' === strtolower(getenv('EC_driver'))) {
+            if ('pgsql' === strtolower($config['driver'])) {
                 //Load PostgreSQL config
-                $host = 'host='.getenv('EC_host');
-                $dbname = 'dbname='.getenv('EC_dbname');
-                $username = 'user='.getenv('EC_username');
-                $password = 'password='.getenv('EC_password');
+                $host = 'host='.$config['host'];
+                $port = 'port='.$config['port'];
+                $dbname = 'dbname='.$config['dbname'];
+                $username = $config['username'];
+                $password = $config['password'];
 
                 //Create PostgreSQL connection
                 $this->pdo = new PDO("pgsql:$host;$port;$dbname;$username;$password");
