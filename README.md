@@ -6,11 +6,13 @@ Tested:
 - [ ] MySQL
 - [ ] PostgreSQL 
 ## Setup:
+
 1. Install [Composer](https://getcomposer.org/) and run ```composer require laykith/easyconnect``` in your project.
-2. Open .env.example and copy the settings you need to .env
-3. Make sure .env is in your projects root folder
-4. Open .gitignore and add `.env` (If you use git).
-5. Start using EasyConnect!
+2. Start using EasyConnect
+
+### Recommended
+1. Add [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) with ```composer require vlucas/phpdotenv```
+2. Add your .env file to .gitignore
 
 ## Usage:
 Load class 
@@ -19,8 +21,31 @@ require __DIR__ . '/vendor/autoload.php';
 
 use EasyConnect\EasyConnect;
 
-$database = new EasyConnect();
+//Example configs (Use what you need based on driver)
+$config = [
+    'driver'   => 'Sqlite',                              //MySQL SQLite pgsql - (Case Insensetive)
+    'filepath' => 'absolute/path/to/database/file.db',   //required for: SQLite
+    'host'     => 'localhost',                           //required for: MySQL & pgsql
+    'port'     => '3306',                                //required for: MySQL & pgsql
+    'dbname'   => 'name',                                //required for: MySQL & pgsql
+    'username' => 'root',                                //required for: MySQL & pgsql
+    'password' => 'password123',                         //required for: MySQL & pgsql
+];
+
+//Suggestion: Use vlucas/phpdotenv package to load values
+$config = [
+    'driver'   => getEnv('database_driver'),     //MySQL SQLite pgsql - (Case Insensetive)
+    'filepath' => getEnv('database_filepath'),   //required for: SQLite
+    'host'     => getEnv('database_host'),       //required for: MySQL & pgsql
+    'port'     => getEnv('database_port'),       //required for: MySQL & pgsql
+    'dbname'   => getEnv('database_name'),       //required for: MySQL & pgsql
+    'dbname'   => getEnv('database_name'),       //required for: MySQL & pgsql
+    'password' => getEnv('password'),            //required for: MySQL & pgsql
+];
+
+$database = new EasyConnect($config);
 ````
+
 Retrive data from database
 ````php
 //Example query
