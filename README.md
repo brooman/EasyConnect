@@ -71,7 +71,7 @@ $params = [
 ];
 
 //Insert into Database
-$database->insertData($query,$params);
+$database->setData($query,$params);
 ````
 
 Retrive PDO exceptions
